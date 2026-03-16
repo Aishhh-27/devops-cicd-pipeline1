@@ -2,8 +2,7 @@ name: CI-CD Pipeline
 
 on:
   push:
-    branches:
-      - main
+    branches: [ main ]
 
 jobs:
   build:
@@ -32,3 +31,8 @@ jobs:
 
       - name: Build Docker Image
         run: docker build -t cicd-app .
+
+      - name: Security Scan (Trivy)
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: 'cicd-app'
